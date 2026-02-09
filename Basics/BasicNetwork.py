@@ -21,4 +21,32 @@ class SingleLayer:
             syn1 += l1.T.dot(l2_delta)
             syn0 += x.T.dot(l1_delta)
             
-SingleLayer.layer()
+# Double layer Network
+class DoubleLayer():
+    def nonlin(x, deriv = False):
+        if deriv == True:
+            return x*(1-x)
+        return 1/(1+np.exp(-x))
+    
+    def Layer():
+        X = np.array([[0,0,1],
+                      [0,1,1],
+                      [1,0,1],
+                      [1,1,1]])
+        
+        y = np.array([[0,0,1,1]]).T
+        np.random.seed(1)
+        
+        syn0 = 2*np.random.random((3,1)) - 1
+        
+        for i in range(10000):
+            l0 = X
+            l1 = DoubleLayer.nonlin(np.dot(l0, syn0))
+            l1_error = y - l1
+            l1_delta = l1_error * DoubleLayer.nonlin(l1, True)
+            syn0 += np.dot(l0.T, l1_delta)
+        
+        print('Output:')
+        print(l1)
+
+DoubleLayer.Layer()
